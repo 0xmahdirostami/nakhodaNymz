@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Donate — Crypto Donations</title>
+  <style>
+    :root{--bg:#0f1724;--card:#111827;--muted:#9ca3af;--accent:#10b981}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;background:linear-gradient(180deg,#071028 0%,#07182a 100%);color:#e6eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+    .wrap{width:100%;max-width:900px}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    header h1{font-size:20px;margin:0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .card{background:rgba(255,255,255,0.03);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 18px rgba(2,6,23,0.6);}
+    .coin{display:flex;align-items:center;gap:12px}
+    .logo{width:52px;height:52px;flex:0 0 52px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent)}
+    .coin h2{margin:0;font-size:16px}
+    .addr{margin-top:10px;background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;word-break:break-all;font-family:monospace;color:#dbeafe}
+    .actions{display:flex;gap:8px;margin-top:10px}
+    button{background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit;padding:8px 10px;border-radius:8px;cursor:pointer}
+    .muted{color:var(--muted);font-size:13px}
+    .footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:28px;background:#111827;padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);display:none}
+    @media (max-width:420px){.logo{width:46px;height:46px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <rect width="24" height="24" rx="6" fill="url(#g)"/>
+        <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#06b6d4"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
+      </svg>
+      <div>
+        <h1>Support Nakhoda Nymz — Adventurer</h1>
+        <div class="muted">Click an address to copy it.</div>
+      </div>
+    </header>
+
+    <section class="grid">
+
+      <!-- Bitcoin -->
+      <article class="card" data-coin="bitcoin">
+        <div class="coin">
+          <div class="logo" aria-hidden>
+            <!-- Bitcoin SVG -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="11" fill="#f7931a"/>
+              <path d="M12.8 7.2c.7-1.8-1.1-2.6-2.2-2.3l-.9.3-.2-.9-.9-.3-.2.9-1.1.34.2.86-.6.19a.6.6 0 00-.46.7l.07.32-.9.27v1.1l.9-.27v6.9l-.9.27v1.1l.9-.27.2.86 1.1-.34-.2-.86.9-.27.2.86.9-.27c1.1-.32 2.9-.02 2.2-2.3-.5-1.1-.3-1.8.5-2.2.6-.3.9-.6.9-1.1 0-.8-.8-1.1-1.4-1.3-.9-.3-1.4-.5-1-1.6z" fill="#fff"/>
+            </svg>
+          </div>
+          <div>
+            <h2>Bitcoin (BTC)</h2>
+          </div>
+        </div>
+        <div class="addr" id="btc-addr">bc1q7fedtuarvgscczgcycjqpf2k2klm6kna25w73f</div>
+        <div class="actions">
+          <button onclick="copyAddr('btc-addr')">Copy</button>
+        </div>
+      </article>
+
+      <!-- Solana -->
+      <article class="card" data-coin="solana">
+        <div class="coin">
+          <div class="logo">
+            <!-- Solana SVG -->
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <linearGradient id="s1" x1="0" x2="1"><stop offset="0" stop-color="#00FFA3"/><stop offset="1" stop-color="#DC1FFF"/></linearGradient>
+              <rect x="3" y="6" width="18" height="3" rx="1.5" fill="url(#s1)" transform="skewX(-20 12 7)" />
+              <rect x="3" y="14" width="18" height="3" rx="1.5" fill="url(#s1)" transform="skewX(-20 12 15)" />
+            </svg>
+          </div>
+          <div>
+            <h2>Solana (SOL)</h2>
+          </div>
+        </div>
+        <div class="addr" id="sol-addr">HbvTtg8tntvBp9e8unmM7jW5TyhEanaA7MYFquGq5BUu</div>
+        <div class="actions">
+          <button onclick="copyAddr('sol-addr')">Copy</button>
+        </div>
+      </article>
+
+      <!-- Ethereum -->
+      <article class="card" data-coin="ethereum">
+        <div class="coin">
+          <div class="logo">
+            <!-- Ethereum SVG -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L4 12l8 4 8-4-8-10z" fill="#3C3C3D"/>
+              <path d="M12 2v14l8-4-8-10z" fill="#8C8C8C"/>
+            </svg>
+          </div>
+          <div>
+            <h2>Ethereum (ETH) ERC20 Tokens</h2>
+          </div>
+        </div>
+        <div class="addr" id="eth-addr">0xFC9d63998D6370F6229497Aec1c2008D28cbbCc7</div>
+        <div class="actions">
+          <button onclick="copyAddr('eth-addr')">Copy</button>
+        </div>
+      </article>
+
+      <!-- Tron -->
+      <article class="card" data-coin="tron">
+        <div class="coin">
+          <div class="logo">
+            <!-- Tron SVG -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 12L12 2l10 10-10 4L2 12z" fill="#ef0027"/>
+              <path d="M12 2v14l10-4L12 2z" fill="#ff5a26"/>
+            </svg>
+          </div>
+          <div>
+            <h2>Tron (TRX) TRC20 Tokens</h2>
+          </div>
+        </div>
+        <div class="addr" id="trx-addr">TPo4TJHCMgKqviqhPy8YeAsvuKebL85Aef</div>
+        <div class="actions">
+          <button onclick="copyAddr('trx-addr')">Copy</button>
+        </div>
+      </article>
+
+    </section>
+
+    <div class="footer">Tip: replace the placeholder text (e.g. <code>YOUR_BITCOIN_ADDRESS_HERE</code>) with your real addresses before publishing.</div>
+  </div>
+
+  <div class="toast" id="toast">Copied to clipboard</div>
+
+  <script>
+    // Helper: copy address
+    function copyAddr(id){
+      const el=document.getElementById(id);
+      const text=el.textContent.trim();
+      if(!text){showToast('No address set');return}
+      navigator.clipboard.writeText(text).then(()=>showToast('Address copied'))
+      .catch(()=>showToast('Copy failed'));
+    }
+
+    function showToast(msg){
+      const t=document.getElementById('toast');
+      t.textContent=msg; t.style.display='block';
+      setTimeout(()=>{t.style.display='none'},1800);
+    }
+  </script>
+</body>
+</html>
